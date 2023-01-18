@@ -21,7 +21,7 @@ resource "digitalocean_kubernetes_cluster" "ftf-cluster" {
 
   node_pool {
     name       = "autoscale-worker-pool"
-    size       = "s-1vcpu-512mb-10gb"
+    size       = "s-1vcpu-1gb"
     auto_scale = true
     min_nodes  = 1
     max_nodes  = 3
