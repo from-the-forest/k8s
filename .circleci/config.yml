@@ -8,28 +8,31 @@ workflows:
   primary:
     jobs:
       - terraform/fmt:
-          checkout: true
           context: cuffney
+          checkout: true
+          path: ./infra
       - terraform/validate:
-          checkout: true
           context: cuffney
+          checkout: true
+          path: ./infra
           requires:
             - terraform/fmt
       - terraform/plan:
-          checkout: true
           context: cuffney
+          checkout: true
+          path: ./infra
           persist-workspace: true
           requires:
             - terraform/validate
       - terraform/apply:
-          attach-workspace: true
           context: cuffney
+          attach-workspace: true
+          path: ./infra
+          requires:
+            - terraform/plan
           filters:
             branches:
               only: main
-          requires:
-            - terraform/plan
-
   # nightly:
   #   triggers:
   #     - schedule:
