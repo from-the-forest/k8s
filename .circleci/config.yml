@@ -3,6 +3,13 @@ version: 2.1
 orbs:
   terraform: circleci/terraform@3.2.0
 
+jobs:
+  cleanup:
+    steps:
+      - checkout
+      - run: |
+          echo "cleanup"
+
 workflows:
   version: 2
   primary:
@@ -35,13 +42,15 @@ workflows:
           filters:
             branches:
               only: main
-  # nightly:
-  #   triggers:
-  #     - schedule:
-  #         cron: "0 0 * * *" # ~8PM EST.
-  #         filters:
-  #           branches:
-  #             only:
-  #               - main
-  #   jobs:
-  #     - cleanup
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *" # ~8PM EST.
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - terraform/destroy:
+          path: ./infra
