@@ -16,12 +16,12 @@ variable "do_token" {}
 
 provider "digitalocean" {
   # Configuration options
-  token  = var.do_token
-  region = "nyc1"
+  token = var.do_token
 }
 
 resource "digitalocean_kubernetes_cluster" "ftf-cluster" {
   name    = "ftf-cluster"
+  region  = "nyc1"
   version = "1.25.4-do.0"
 
   node_pool {
