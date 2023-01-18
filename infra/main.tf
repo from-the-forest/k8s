@@ -15,7 +15,7 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_kubernetes_cluster" "ftf-cluster" {
-  name    = "foo"
+  name    = "ftf-cluster"
   region  = "nyc1"
   version = "1.25.4-do.0"
 
