@@ -8,26 +8,27 @@ workflows:
   primary:
     jobs:
       - terraform/fmt:
-          context: cuffney
+          context: ftf
           checkout: true
           path: ./infra
       - terraform/validate:
-          context: cuffney
+          context: ftf
           checkout: true
           path: ./infra
           requires:
             - terraform/fmt
       - terraform/plan:
-          context: cuffney
+          context: ftf
           checkout: true
           path: ./infra
           persist-workspace: true
           requires:
             - terraform/validate
       - terraform/apply:
-          context: cuffney
+          context: ftf
           attach-workspace: true
           path: ./infra
+          var: do_token=${DO_TOKEN}
           requires:
             - terraform/plan
           filters:
