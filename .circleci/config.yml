@@ -21,6 +21,7 @@ workflows:
           context: ftf
           checkout: true
           path: ./infra
+          var: do_token=${DO_TOKEN}
           persist-workspace: true
           requires:
             - terraform/validate
