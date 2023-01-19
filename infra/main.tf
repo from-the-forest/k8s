@@ -27,7 +27,7 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-resource "digitalocean_kubernetes_cluster" "ftf-cluster" {
+resource "digitalocean_kubernetes_cluster" "k8s_cluster" {
   name = "ftf-${var.env}-cluster"
   # same as DO container registry (which doesn't have nyc1)
   region  = "nyc3"
