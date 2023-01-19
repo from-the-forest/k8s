@@ -35,15 +35,3 @@ workflows:
           filters:
             branches:
               only: main
-
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *" # ~8PM EST.
-          filters:
-            branches:
-              only:
-                - main
-    jobs:
-      - terraform/destroy:
-          path: ./infra
