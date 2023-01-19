@@ -12,7 +12,15 @@ terraform {
   }
 }
 
-variable "do_token" {}
+variable "do_token" {
+  description = "digital ocean access token"
+  type        = string
+}
+variable "env" {
+  description = "environment name"
+  type        = string
+  default     = "main"
+}
 
 provider "digitalocean" {
   # Configuration options
@@ -20,15 +28,19 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_kubernetes_cluster" "ftf-cluster" {
-  name    = "ftf-cluster"
+  name = "ftf-${var.env}-cluster"
+  # same as DO container registry (which doesn't have nyc1)
   region  = "nyc3"
   version = "1.25.4-do.0"
 
   node_pool {
-    name       = "autoscale-worker-pool"
+    name = "ftf-${var.env}-autoscale-worker-pool"
+    # doctl kubernetes options sizes
+    # NOTE: this is the smallest available size
     size       = "s-1vcpu-2gb"
     auto_scale = true
-    min_nodes  = 1
-    max_nodes  = 2
+    # NOTE: you need a minimum of 2 nodes in order to have no downtime
+    min_nodes = 2
+    max_nodes = 3
   }
 }

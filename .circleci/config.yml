@@ -21,7 +21,7 @@ workflows:
           context: ftf
           checkout: true
           path: ./infra
-          var: do_token=${DO_TOKEN}
+          var: do_token=${DO_TOKEN},env=${CIRCLE_BRANCH}
           persist-workspace: true
           requires:
             - terraform/validate
